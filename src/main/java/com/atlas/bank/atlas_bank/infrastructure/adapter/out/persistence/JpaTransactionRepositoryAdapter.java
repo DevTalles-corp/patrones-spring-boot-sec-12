@@ -31,6 +31,8 @@ public class JpaTransactionRepositoryAdapter implements TransactionRepositoryPor
 
     @Override
     public List<Transaction> findBySourceAccountIdOrTargetAccountId(Long sourceId, Long targetId) {
-        return List.of();
+        return jpaRepository.findBySourceAccountIdOrTargetAccountId(sourceId, targetId)
+                .stream()
+                .map(mapper::toDomain).toList();
     }
 }
