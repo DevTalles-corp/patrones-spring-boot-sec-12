@@ -1,12 +1,13 @@
 package com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest;
 
+import com.atlas.bank.atlas_bank.application.facade.AccountDashboardFacade;
 import com.atlas.bank.atlas_bank.application.port.in.CreateAccountUseCase;
 import com.atlas.bank.atlas_bank.application.port.in.GetAccountUseCase;
 import com.atlas.bank.atlas_bank.application.port.in.ListAccountsUseCase;
+import com.atlas.bank.atlas_bank.application.query.DashboardReadModel;
 import com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest.dto.AccountMapper;
 import com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest.dto.AccountResponse;
 import com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest.dto.CreateAccountRequest;
-import com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest.dto.DashboardResponse;
 import com.atlas.bank.atlas_bank.domain.model.account.Account;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class AccountController {
     private final AccountDashboardFacade dashboardFacade;
 
     @GetMapping("/{id}/dashboard")
-    public ResponseEntity<DashboardResponse> getDashboard(@PathVariable Long id){
+    public ResponseEntity<DashboardReadModel> getDashboard(@PathVariable Long id){
         return ResponseEntity.ok(dashboardFacade.getDashboard(id));
     }
 

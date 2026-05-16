@@ -3,6 +3,8 @@ package com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest;
 import com.atlas.bank.atlas_bank.application.command.TransferMoneyCommand;
 import com.atlas.bank.atlas_bank.application.port.in.GetTransactionsByAccountUseCase;
 import com.atlas.bank.atlas_bank.application.port.in.TransferMoneyUseCase;
+import com.atlas.bank.atlas_bank.application.query.GetAccountStatementQuery;
+import com.atlas.bank.atlas_bank.application.query.TransactionReadModel;
 import com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest.dto.TransactionMapper;
 import com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest.dto.TransactionResponse;
 import com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest.dto.TransferRequest;
@@ -39,11 +41,12 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}/transactions")
-    public ResponseEntity<List<TransactionResponse>> getTransactions(@PathVariable Long id) {
-        List<TransactionResponse> responses = getTransactionsByAccountUseCase.getByAccountId(id)
-                .stream()
-                .map(transactionMapper::toResponse)
-                .toList();
+    public ResponseEntity<List<TransactionReadModel>> getTransactions(@PathVariable Long id) {
+
+        GetAccountStatementQuery query = new GetAccountStatementQuery(id);
+
+        List<TransactionReadModel> responses = getTransactionsByAccountUseCase.getByAccountId(query);
+
         return ResponseEntity.ok(responses);
     }
 }
