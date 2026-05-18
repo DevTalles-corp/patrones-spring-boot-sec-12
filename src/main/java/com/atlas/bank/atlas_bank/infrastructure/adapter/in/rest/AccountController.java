@@ -1,5 +1,6 @@
 package com.atlas.bank.atlas_bank.infrastructure.adapter.in.rest;
 
+import com.atlas.bank.atlas_bank.application.command.CreateAccountCommand;
 import com.atlas.bank.atlas_bank.application.facade.AccountDashboardFacade;
 import com.atlas.bank.atlas_bank.application.port.in.CreateAccountUseCase;
 import com.atlas.bank.atlas_bank.application.port.in.GetAccountUseCase;
@@ -37,9 +38,15 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<AccountResponse> create(@Valid @RequestBody CreateAccountRequest request){
-        Account account = accountMapper.toEntity(request);
+        CreateAccountCommand command = CreateAccountCommand.builder()
+                .accountNumber(request.getAccountNumber())
+                .ownerName(request.getOwnerName())
+                .email(request.getEmail())
+                .type(request.getType())
+                .balance(request.getBalance())
+                .build();
 
-        Account saved = createAccountUseCase.create(account);
+        Account saved = createAccountUseCase.create(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(accountMapper.toResponse(saved));
     }
 
