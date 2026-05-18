@@ -40,6 +40,7 @@ public class TransactionController {
         return ResponseEntity.ok(transactionMapper.toResponse(transaction));
     }
 
+    //Get TransactionReadModel
     @GetMapping("/{id}/transactions")
     public ResponseEntity<List<TransactionReadModel>> getTransactions(@PathVariable Long id) {
 
