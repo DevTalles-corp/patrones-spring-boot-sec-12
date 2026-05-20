@@ -1,5 +1,6 @@
 package com.atlas.bank.atlas_bank.infrastructure.config;
 
+import com.atlas.bank.atlas_bank.application.validation.FraudValidator;
 import com.atlas.bank.atlas_bank.domain.service.TransferDomainService;
 import com.atlas.bank.atlas_bank.domain.strategy.fee.*;
 import com.atlas.bank.atlas_bank.domain.validation.*;
