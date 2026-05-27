@@ -1,4 +1,10 @@
 spring:
+  ai:
+    openai:
+      api-key: ollama
+      base-url: http://localhost:11434/v1
+      chat:
+        model: qwen3:8b
   application:
     name: atlas-bank
   datasource:
